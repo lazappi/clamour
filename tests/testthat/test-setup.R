@@ -1,0 +1,11 @@
+test_that("setup works", {
+  path <- fs::path(tempdir(), "test")
+  clamour_setup(path, rstudio = TRUE, open = FALSE)
+  expect_true(fs::dir_exists(path))
+  expect_true(fs::dir_exists(fs::path(path, "analysis")))
+  expect_true(fs::file_exists(fs::path(path, "analysis", "_site.yml")))
+  expect_true(fs::file_exists(fs::path(path, "analysis", "index.Rmd")))
+  expect_true(fs::file_exists(fs::path(path, "analysis", "about.Rmd")))
+  expect_true(fs::dir_exists(fs::path(path, "docs")))
+  expect_true(fs::dir_exists(fs::path(path, "data")))
+})

@@ -1,0 +1,8 @@
+---
+title: "About"
+---
+
+This website displays the results of analysing Twitter activity for various
+hashtags. It was created using the [`clamour`][] package.
+
+[clamour]: lazappi.github.io/clamour "clamour package website"
