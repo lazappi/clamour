@@ -9,6 +9,14 @@
 clamour provides a template for setting up a website to display the
     results of analysis of Twitter hashtags.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/lazappi/clamour}
+  \item Report bugs at \url{https://github.com/lazappi/clamour/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Luke Zappia \email{luke@lazappi.id.au} (0000-0001-7744-8565)
 
