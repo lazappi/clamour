@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.com/lazappi/clamour.svg?branch=master)](https://travis-ci.com/lazappi/clamour)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/lazappi/clamour?branch=master&svg=true)](https://ci.appveyor.com/project/lazappi/clamour)
 <!-- badges: end -->
 
 `clamour` provides a template for setting up a website to display the results of
@@ -13,9 +14,8 @@ analysis of Twitter hashtags.
 You can install the current version of clamour from GitHub with:
 
 ``` r
-if (require(remotes)) {
-    install_github("lazappi/clamour")
-}
+# install.packages("remotes")
+remotes::install_github("lazappi/clamour")
 ```
 
 ## Code of conduct

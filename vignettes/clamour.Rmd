@@ -1,0 +1,54 @@
+---
+title: "clamour"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{clamour}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+_clamour_ is a package to help with building a website to display the results
+of analysis of Twitter hashtags, usually associated with an event such as an
+academic conference. The package provides some basic infrastructure and examples
+to help you get set up.
+
+```{r library}
+library(clamour)
+```
+
+This vignette will take you through the basics of setting up a _clamour_
+project, analysis of an example dataset and how to host the results on a website
+using [GitHub pages][pages].
+
+# Setting up
+
+To start a _clamour_ project we can use the `clamour_setup` function. This will
+create a basic directory structure with some template files. We just need to
+provide the function with a path to the new project directory. For this vignette
+we use a temporary directory.
+
+```{r setup}
+path <- fs::path(tempdir(), "example")
+clamour_setup(path)
+```
+
+The result is the following directory structure:
+
+```{r directory}
+fs::dir_tree(path)
+```
+
+* `analysis/` - Analysis files for each hashtag
+* `data/` - Data files containing tweets
+* `docs/` - The rendered website files
+
+[pages]: https://pages.github.com/ "GitHub pages"
