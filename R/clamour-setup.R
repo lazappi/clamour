@@ -1,7 +1,9 @@
 #' Setup a clamour project
 #'
 #' This function creates the directory structure necessary for analysing Twitter
-#' hashtag activity and displaying the results on a website.
+#' hashtag activity and displaying the results on a website. It will also prompt
+#' you to install packages required by the default analysis and to authorise
+#' [rtweet](https://rtweet.info/).
 #'
 #' @param path A path for the project. If it exists it will be used. If it does
 #'   exist it will be created, provided the parent path exists.
@@ -90,6 +92,31 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     if (rstudio) {
         usethis::use_rstudio()
     }
+
+    libs <- readLines(fs::path_package("clamour",
+                                       "templates/hashtag_template.Rmd"))
+    libs <- libs[grep("library", libs)]
+    libs <- gsub('library\\(\\"', "", libs)
+    libs <- gsub('\\"\\)', "", libs)
+    libs <- libs[!(libs %in% utils::installed.packages())]
+    n_libs <- length(libs)
+
+    if (n_libs >= 1 && interactive()) {
+        usethis::ui_info(
+            "{n_libs} packages used in the default analysis are not installed:"
+        )
+        usethis::ui_line(usethis::ui_value(libs))
+        install <- usethis::ui_yeah("Do you want to install them now?")
+        if (install) {
+            utils::install.packages(libs)
+        }
+    }
+
+    usethis::ui_todo(
+        "Run the following code to make sure rtweet is authorised:"
+    )
+    rt_test <- "rt <- rtweet::search_tweets('#rstats', n = 1000)"
+    usethis::ui_line("{usethis::ui_code(rt_test)}")
 
     if (open) {
         if (usethis::proj_activate(path)) {

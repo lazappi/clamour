@@ -53,4 +53,12 @@ The result is the following directory structure:
   * `EXAMPLE.Rds` - The example tweet dataset
 * `docs/` - Rendered website files will go here
 
+## Authorising rtweet
+
+The [`rtweet`][rtweet] package is used to download tweets from Twitter but to
+do so it must first be authorised. The setup function will prompt you to run
+some code that should do this but if that is unsuccessul please refer to the
+information on the [`rtweet` website][rtweet].
+
 [pages]: https://pages.github.com/ "GitHub pages"
+[rtweet]: https://rtweet.info/ "rtweet"

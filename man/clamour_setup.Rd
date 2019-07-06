@@ -29,7 +29,9 @@ Path to the newly created project, invisibly.
 }
 \description{
 This function creates the directory structure necessary for analysing Twitter
-hashtag activity and displaying the results on a website.
+hashtag activity and displaying the results on a website. It will also prompt
+you to install packages required by the default analysis and to authorise
+\href{https://rtweet.info/}{rtweet}.
 }
 \references{
 Based on \href{https://github.com/r-lib/usethis/blob/master/R/create.R}{usethis::create_package()}

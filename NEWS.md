@@ -1,6 +1,7 @@
 # clamour 0.1.0.9003 (2019-07-06)
 
 * Add example analysis files
+* Add prompts to install packages and authorise rtweet
 
 # clamour 0.1.0.9002 (2019-07-05)
 
