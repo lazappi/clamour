@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">clamour</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -94,32 +94,52 @@
 <p>To start a <em>clamour</em> project we can use the <code>clamour_setup</code> function. This will create a basic directory structure with some template files. We just need to provide the function with a path to the new project directory. For this vignette we use a temporary directory.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">path &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"example"</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/clamour_setup.html">clamour_setup</a></span>(path)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ Creating '/tmp/RtmpvKr5dY/example/'</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpvKr5dY/example'</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ Creating '/tmp/RtmpzKTBN0/example/'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpzKTBN0/example'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; ✔ Creating 'analysis/'</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; ✔ Writing 'analysis/_site.yml'</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ✔ Writing 'analysis/index.Rmd'</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; ✔ Writing 'analysis/about.Rmd'</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; ✔ Creating 'docs/'</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; ✔ Creating 'data/'</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; ✔ Writing 'analysis/_analysis.Rmd'</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; ✔ Writing 'analysis/EXAMPLE.Rmd'</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; ✔ Creating 'docs/'</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; ✔ Creating 'data/'</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; ✔ Copying 'data/EXAMPLE.Rds'</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; ● Run the following code to make sure rtweet is authorised:</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; `rt &lt;- rtweet::search_tweets('#rstats', n = 1000)`</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; ✔ Setting active project to '&lt;no active project&gt;'</span></a></code></pre></div>
 <p>The result is the following directory structure:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span>(path)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; /tmp/RtmpvKr5dY/example</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; ├── analysis</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; │   ├── _site.yml</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; │   ├── about.Rmd</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; │   └── index.Rmd</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; ├── data</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; └── docs</span></a></code></pre></div>
 <ul>
 <li>
-<code>analysis/</code> - Analysis files for each hashtag</li>
+<code>analysis/</code> - Analysis files for each hashtag
+<ul>
 <li>
-<code>data/</code> - Data files containing tweets</li>
+<code>_site.yml</code> - Website configuration file</li>
 <li>
-<code>docs/</code> - The rendered website files</li>
+<code>index.Rmd</code> - Index page</li>
+<li>
+<code>about.Rmd</code> - About page</li>
+<li>
+<code>EXAMPLE.Rmd</code> - An example hashtag analysis file</li>
+<li>
+<code>_analysis.Rmd</code> - Analysis template that is applied to each hashtag</li>
 </ul>
+</li>
+<li>
+<code>data/</code> - Data files containing tweets
+<ul>
+<li>
+<code>EXAMPLE.Rds</code> - The example tweet dataset</li>
+</ul>
+</li>
+<li>
+<code>docs/</code> - Rendered website files will go here</li>
+</ul>
+<div id="authorising-rtweet" class="section level2">
+<h2 class="hasAnchor">
+<a href="#authorising-rtweet" class="anchor"></a>Authorising rtweet</h2>
+<p>The <a href="https://rtweet.info/" title="rtweet"><code>rtweet</code></a> package is used to download tweets from Twitter but to do so it must first be authorised. The setup function will prompt you to run some code that should do this but if that is unsuccessul please refer to the information on the <a href="https://rtweet.info/" title="rtweet"><code>rtweet</code> website</a>.</p>
+</div>
 </div>
   </div>
 
@@ -129,7 +149,11 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#setting-up">Setting up</a></li>
+      <li>
+<a href="#setting-up">Setting up</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#authorising-rtweet">Authorising rtweet</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
