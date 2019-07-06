@@ -1,8 +1,8 @@
 Package: clamour
 Type: Package
 Title: Website for Twitter analysis results
-Version: 0.1.0.9002
-Date: 2019-07-05
+Version: 0.1.0.9003
+Date: 2019-07-06
 Authors@R:
     c(person("Luke", "Zappia", role = c("aut", "cre"),
              email = "luke@lazappi.id.au",
@@ -15,6 +15,8 @@ BugReports: https://github.com/lazappi/clamour/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.5)
 Imports: 
     fs,
     usethis

@@ -12,3 +12,6 @@ output:
   html_document:
     theme: paper
     highlight: default
+    number_sections: yes
+    toc: yes
+    toc_float: yes

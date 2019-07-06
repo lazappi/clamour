@@ -8,3 +8,5 @@
 ^\.travis\.yml$
 ^clamour\.Rproj$
 ^appveyor\.yml$
+^doc$
+^Meta$

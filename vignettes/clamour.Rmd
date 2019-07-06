@@ -43,12 +43,14 @@ clamour_setup(path)
 
 The result is the following directory structure:
 
-```{r directory}
-fs::dir_tree(path)
-```
-
 * `analysis/` - Analysis files for each hashtag
+  * `_site.yml` - Website configuration file
+  * `index.Rmd` - Index page
+  * `about.Rmd` - About page
+  * `EXAMPLE.Rmd` - An example hashtag analysis file
+  * `_analysis.Rmd` - Analysis template that is applied to each hashtag
 * `data/` - Data files containing tweets
-* `docs/` - The rendered website files
+  * `EXAMPLE.Rds` - The example tweet dataset
+* `docs/` - Rendered website files will go here
 
 [pages]: https://pages.github.com/ "GitHub pages"

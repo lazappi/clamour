@@ -58,9 +58,34 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
                           package = "clamour")
     usethis::use_template("about.Rmd", "analysis/about.Rmd",
                           package = "clamour")
+    usethis::use_template("_analysis.Rmd", "analysis/_analysis.Rmd",
+                          package = "clamour")
+    usethis::use_template("hashtag_template.Rmd", "analysis/EXAMPLE.Rmd",
+                          package = "clamour",
+                          data = list(
+                              TITLE       = "Example",
+                              DESCRIPTION = "An example analysis",
+                              HASHTAG     = "#rstats",
+                              START_DAY   = "2019-07-04",
+                              END_DAY     = "2019-07-06",
+                              TIMEZONE    = "Australia/Melbourne",
+                              THEME       = "theme_light",
+                              ACCENT      = "dodgerblue",
+                              ACCENT2     = "#BDE2FF",
+                              KCORE       = 2,
+                              TOPICS      = 6,
+                              BIGRAM      = 3,
+                              FIXED       = TRUE,
+                              SEED        = 1
+                          ))
 
     usethis::use_directory("docs")
     usethis::use_directory("data")
+    if (!fs::file_exists(usethis::proj_path("data/EXAMPLE.Rds"))) {
+        fs::file_copy(fs::path_package("clamour", "templates/example_data.Rds"),
+                      usethis::proj_path("data/EXAMPLE.Rds"))
+        usethis::ui_done("Copying {usethis::ui_path('data/EXAMPLE.Rds')}")
+    }
 
     if (rstudio) {
         usethis::use_rstudio()
