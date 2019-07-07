@@ -1,3 +1,8 @@
+# clamour 0.1.0.9004 (2019-07-07)
+
+* Add clamour_new function
+* Add clamour_table and clamour_list functions
+
 # clamour 0.1.0.9003 (2019-07-06)
 
 * Add example analysis files

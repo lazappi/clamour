@@ -4,6 +4,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.com/lazappi/clamour.svg?branch=master)](https://travis-ci.com/lazappi/clamour)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/lazappi/clamour?branch=master&svg=true)](https://ci.appveyor.com/project/lazappi/clamour)
+[![Codecov test coverage](https://codecov.io/gh/lazappi/clamour/branch/master/graph/badge.svg)](https://codecov.io/gh/lazappi/clamour?branch=master)
 <!-- badges: end -->
 
 `clamour` provides a template for setting up a website to display the results of

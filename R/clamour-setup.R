@@ -62,24 +62,22 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
                           package = "clamour")
     usethis::use_template("_analysis.Rmd", "analysis/_analysis.Rmd",
                           package = "clamour")
-    usethis::use_template("hashtag_template.Rmd", "analysis/EXAMPLE.Rmd",
-                          package = "clamour",
-                          data = list(
-                              TITLE       = "Example",
-                              DESCRIPTION = "An example analysis",
-                              HASHTAG     = "#rstats",
-                              START_DAY   = "2019-07-04",
-                              END_DAY     = "2019-07-06",
-                              TIMEZONE    = "Australia/Melbourne",
-                              THEME       = "theme_light",
-                              ACCENT      = "dodgerblue",
-                              ACCENT2     = "#BDE2FF",
-                              KCORE       = 2,
-                              TOPICS      = 6,
-                              BIGRAM      = 3,
-                              FIXED       = TRUE,
-                              SEED        = 1
-                          ))
+    clamour_new(
+        name          = "EXAMPLE",
+        hashtag       = "#rstats",
+        description   = "An example analysis",
+        start_day     = "2019-07-04",
+        end_day       = "2019-07-06",
+        timezone      = "Australia/Melbourne",
+        theme         = "theme_light",
+        accent        = "dodgerblue",
+        accent2       = NULL,
+        kcore         = 2,
+        topics_k      = 6,
+        bigram_filter = 3,
+        fixed         = TRUE,
+        seed          = 1
+    )
 
     usethis::use_directory("docs")
     usethis::use_directory("data")

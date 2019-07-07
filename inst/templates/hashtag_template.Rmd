@@ -7,7 +7,7 @@ params:
     # Times
     start_day: "{{START_DAY}}"
     end_day: "{{END_DAY}}"
-    timezone: "{{TIMEZONE}}""
+    timezone: "{{TIMEZONE}}"
     # Plot theme and colours
     theme: "{{THEME}}"
     accent: "{{ACCENT}}"

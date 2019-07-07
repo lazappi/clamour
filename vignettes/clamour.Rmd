@@ -55,10 +55,23 @@ The result is the following directory structure:
 
 ## Authorising rtweet
 
-The [`rtweet`][rtweet] package is used to download tweets from Twitter but to
+The [_rtweet_][rtweet] package is used to download tweets from Twitter but to
 do so it must first be authorised. The setup function will prompt you to run
 some code that should do this but if that is unsuccessul please refer to the
-information on the [`rtweet` website][rtweet].
+information on the [_rtweet_ website][rtweet].
+
+# Starting an analysis
+
+When you want to add an analysis for a new hashtag or event you should run the
+`clamour_new` function. This function will create a new R Markdown document
+based on the arguments you have provided. See the `EXAMPLE.Rmd` file for an
+example of what this looks like. Parameters for this analysis are provided in
+the YAML section at the start of the file (see `?clamour_new` for more
+description of these). After loading the tweet data there is an introduction
+where you can describe the analysis in more detail. Most of the analysis is
+performed by the chunk labelled `analysis` which knits the `_analysis.Rmd` file.
+By having the analysis code in a separate file it is easy to update it in one
+place and apply those changes to every analysis on your website.
 
 [pages]: https://pages.github.com/ "GitHub pages"
 [rtweet]: https://rtweet.info/ "rtweet"

@@ -8,4 +8,5 @@ test_that("setup works", {
   expect_true(fs::file_exists(fs::path(path, "analysis", "about.Rmd")))
   expect_true(fs::dir_exists(fs::path(path, "docs")))
   expect_true(fs::dir_exists(fs::path(path, "data")))
+  fs::dir_delete(path)
 })

@@ -3,3 +3,7 @@ title: "Twitter stats"
 ---
 
 Analysis of the following Twitter hashtags:
+
+```{r list, echo = FALSE, results = "asis"}
+cat(clamour::clamour_list())
+```
