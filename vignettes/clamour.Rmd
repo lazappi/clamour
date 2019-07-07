@@ -1,5 +1,7 @@
 ---
 title: "clamour"
+subtitle: "An introduction to the _clamour_ package"
+date: "Last updated: 2019-07-07"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{clamour}
@@ -53,7 +55,7 @@ The result is the following directory structure:
   * `EXAMPLE.Rds` - The example tweet dataset
 * `docs/` - Rendered website files will go here
 
-## Authorising rtweet
+## Authorising _rtweet_
 
 The [_rtweet_][rtweet] package is used to download tweets from Twitter but to
 do so it must first be authorised. The setup function will prompt you to run
@@ -72,6 +74,36 @@ where you can describe the analysis in more detail. Most of the analysis is
 performed by the chunk labelled `analysis` which knits the `_analysis.Rmd` file.
 By having the analysis code in a separate file it is easy to update it in one
 place and apply those changes to every analysis on your website.
+
+To make sure that your new analysis will be accessible our your website remember
+to render the `index.html` file. The template for this file contains a call to
+`clamour_list()` which should automatically add a link to your new analysis.
+
+# Running an analysis
+
+Individual analysis files can be rendered by using `rmarkdown::render()` or
+pressing the "Knit" button in RStudio. Doing this should:
+
+1. Automatically retrieve tweets using _rtweet_ (or from the cached data file)
+2. Save the data as a file with the same name as the analysis in the `data/`
+   directory
+3. Perform the analysis in the `_analysis.Rmd` file
+4. Save the output HTML file to the `docs/` directory
+
+# Serving your website
+
+The _clamour_ template assumes that you will be serving your website using
+GitHub pages but it should also be possible use other similar services (with
+minor modifications). Details on setting up GitHub pages are available
+[here][pages] but briefly the steps are:
+
+1. Set up a _git_ repository and commit your files, including the `docs/`
+   directory
+2. Create a new repository on GitHub, set this as a remote and push your files
+3. Change the settings on GitHub to serve the files in the `docs/` directory
+
+By default your website will be available at a URL like 
+https://GITHUB-USER.github.io/REPOSITORY.
 
 [pages]: https://pages.github.com/ "GitHub pages"
 [rtweet]: https://rtweet.info/ "rtweet"

@@ -1,6 +1,8 @@
 # clamour 0.0.0.9005 (2019-07-07)
 
 * Add tweet shots to template analysis
+* Update README and vignette
+* Change pkgdown theme to sandstone
 
 # clamour 0.0.0.9004 (2019-07-07)
 
