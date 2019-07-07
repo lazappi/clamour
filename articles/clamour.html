@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>clamour • clamour</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="clamour">
@@ -72,7 +72,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>clamour</h1>
+            <h3 class="subtitle">An introduction to the <em>clamour</em> package</h3>
             
+            <h4 class="date">Last updated: 2019-07-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/lazappi/clamour/blob/master/vignettes/clamour.Rmd"><code>vignettes/clamour.Rmd</code></a></small>
       <div class="hidden name"><code>clamour.Rmd</code></div>
@@ -94,8 +96,8 @@
 <p>To start a <em>clamour</em> project we can use the <code>clamour_setup</code> function. This will create a basic directory structure with some template files. We just need to provide the function with a path to the new project directory. For this vignette we use a temporary directory.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">path &lt;-<span class="st"> </span>fs<span class="op">::</span><span class="kw"><a href="http://fs.r-lib.org/reference/path.html">path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(), <span class="st">"example"</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/clamour_setup.html">clamour_setup</a></span>(path)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ Creating '/tmp/RtmpuUp0pw/example/'</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpuUp0pw/example'</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; ✔ Creating '/tmp/Rtmpf7IU6h/example/'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; ✔ Setting active project to '/tmp/Rtmpf7IU6h/example'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; ✔ Creating 'analysis/'</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; ✔ Writing 'analysis/_site.yml'</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ✔ Writing 'analysis/index.Rmd'</span></a>
@@ -137,7 +139,8 @@
 </ul>
 <div id="authorising-rtweet" class="section level2">
 <h2 class="hasAnchor">
-<a href="#authorising-rtweet" class="anchor"></a>Authorising rtweet</h2>
+<a href="#authorising-rtweet" class="anchor"></a>Authorising <em>rtweet</em>
+</h2>
 <p>The <a href="https://rtweet.info/" title="rtweet"><em>rtweet</em></a> package is used to download tweets from Twitter but to do so it must first be authorised. The setup function will prompt you to run some code that should do this but if that is unsuccessul please refer to the information on the <a href="https://rtweet.info/" title="rtweet"><em>rtweet</em> website</a>.</p>
 </div>
 </div>
@@ -145,6 +148,29 @@
 <h1 class="hasAnchor">
 <a href="#starting-an-analysis" class="anchor"></a>Starting an analysis</h1>
 <p>When you want to add an analysis for a new hashtag or event you should run the <code>clamour_new</code> function. This function will create a new R Markdown document based on the arguments you have provided. See the <code>EXAMPLE.Rmd</code> file for an example of what this looks like. Parameters for this analysis are provided in the YAML section at the start of the file (see <code><a href="../reference/clamour_new.html">?clamour_new</a></code> for more description of these). After loading the tweet data there is an introduction where you can describe the analysis in more detail. Most of the analysis is performed by the chunk labelled <code>analysis</code> which knits the <code>_analysis.Rmd</code> file. By having the analysis code in a separate file it is easy to update it in one place and apply those changes to every analysis on your website.</p>
+<p>To make sure that your new analysis will be accessible our your website remember to render the <code>index.html</code> file. The template for this file contains a call to <code><a href="../reference/clamour_list.html">clamour_list()</a></code> which should automatically add a link to your new analysis.</p>
+</div>
+<div id="running-an-analysis" class="section level1">
+<h1 class="hasAnchor">
+<a href="#running-an-analysis" class="anchor"></a>Running an analysis</h1>
+<p>Individual analysis files can be rendered by using <code><a href="https://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> or pressing the “Knit” button in RStudio. Doing this should:</p>
+<ol style="list-style-type: decimal">
+<li>Automatically retrieve tweets using <em>rtweet</em> (or from the cached data file)</li>
+<li>Save the data as a file with the same name as the analysis in the <code>data/</code> directory</li>
+<li>Perform the analysis in the <code>_analysis.Rmd</code> file</li>
+<li>Save the output HTML file to the <code>docs/</code> directory</li>
+</ol>
+</div>
+<div id="serving-your-website" class="section level1">
+<h1 class="hasAnchor">
+<a href="#serving-your-website" class="anchor"></a>Serving your website</h1>
+<p>The <em>clamour</em> template assumes that you will be serving your website using GitHub pages but it should also be possible use other similar services (with minor modifications). Details on setting up GitHub pages are available <a href="https://pages.github.com/" title="GitHub pages">here</a> but briefly the steps are:</p>
+<ol style="list-style-type: decimal">
+<li>Set up a <em>git</em> repository and commit your files, including the <code>docs/</code> directory</li>
+<li>Create a new repository on GitHub, set this as a remote and push your files</li>
+<li>Change the settings on GitHub to serve the files in the <code>docs/</code> directory</li>
+</ol>
+<p>By default your website will be available at a URL like <a href="https://GITHUB-USER.github.io/REPOSITORY" class="uri">https://GITHUB-USER.github.io/REPOSITORY</a>.</p>
 </div>
   </div>
 
@@ -156,10 +182,12 @@
 <li><a href="#introduction">Introduction</a></li>
       <li>
 <a href="#setting-up">Setting up</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#authorising-rtweet">Authorising rtweet</a></li>
+<li><a href="#authorising-rtweet">Authorising <em>rtweet</em></a></li>
       </ul>
 </li>
       <li><a href="#starting-an-analysis">Starting an analysis</a></li>
+      <li><a href="#running-an-analysis">Running an analysis</a></li>
+      <li><a href="#serving-your-website">Serving your website</a></li>
       </ul>
 </div>
       </div>
