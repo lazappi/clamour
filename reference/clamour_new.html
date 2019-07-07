@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup a clamour project — clamour_setup • clamour</title>
+<title>New clamour analysis — clamour_new • clamour</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="Setup a clamour project — clamour_setup" />
+<meta property="og:title" content="New clamour analysis — clamour_new" />
 
-<meta property="og:description" content="This function creates the directory structure necessary for analysing Twitter
-hashtag activity and displaying the results on a website. It will also prompt
-you to install packages required by the default analysis and to authorise
-rtweet." />
+<meta property="og:description" content="Creates a new analysis file based on the clamour template." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,56 +105,96 @@ rtweet." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup a clamour project</h1>
-    <small class="dont-index">Source: <a href='https://github.com/lazappi/clamour/blob/master/R/clamour-setup.R'><code>R/clamour-setup.R</code></a></small>
-    <div class="hidden name"><code>clamour_setup.Rd</code></div>
+    <h1>New clamour analysis</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lazappi/clamour/blob/master/R/new.R'><code>R/new.R</code></a></small>
+    <div class="hidden name"><code>clamour_new.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function creates the directory structure necessary for analysing Twitter
-hashtag activity and displaying the results on a website. It will also prompt
-you to install packages required by the default analysis and to authorise
-<a href='https://rtweet.info/'>rtweet</a>.</p>
+    <p>Creates a new analysis file based on the clamour template.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>clamour_setup</span>(<span class='no'>path</span>, <span class='kw'>rstudio</span> <span class='kw'>=</span> <span class='kw pkg'>rstudioapi</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rstudioapi/topics/isAvailable'>isAvailable</a></span>(),
-  <span class='kw'>open</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>())</pre>
+    <pre class="usage"><span class='fu'>clamour_new</span>(<span class='no'>name</span>, <span class='no'>hashtag</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>"An analysis of"</span>,
+  <span class='no'>hashtag</span>), <span class='kw'>start_day</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>(), <span class='kw'>end_day</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Sys.time'>Sys.Date</a></span>() + <span class='fl'>1</span>,
+  <span class='kw'>timezone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/timezones'>Sys.timezone</a></span>(), <span class='kw'>theme</span> <span class='kw'>=</span> <span class='st'>"theme_light"</span>,
+  <span class='kw'>accent</span> <span class='kw'>=</span> <span class='st'>"dodgerblue"</span>, <span class='kw'>accent2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>kcore</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>topics_k</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>bigram_filter</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"analysis"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A path for the project. If it exists it will be used. If it does
-exist it will be created, provided the parent path exists.</p></td>
+      <th>name</th>
+      <td><p>Name of the analysis. This is used to name files so should
+usually be short and simple.</p></td>
     </tr>
     <tr>
-      <th>rstudio</th>
-      <td><p>If <code>TRUE</code>, calls <code><a href='https://usethis.r-lib.org/reference/use_rstudio.html'>usethis::use_rstudio()</a></code> to make the new
-project into an <a href='https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects'>RStudio Project</a>.
-If <code>FALSE</code> a sentinel <code>.here</code> file is placed so that the directory can be
-recognized as a project by the <a href='https://here.r-lib.org'>here</a> or
-<a href='https://rprojroot.r-lib.org'>rprojroot</a> packages.</p></td>
+      <th>hashtag</th>
+      <td><p>The hashtag to use for this analysis, starting with "#".</p></td>
     </tr>
     <tr>
-      <th>open</th>
-      <td><p>If <code>TRUE</code>, <a href='https://usethis.r-lib.org/reference/proj_activate.html'>activates</a> the new project:</p><ul>
-<li><p>If RStudio desktop, the package is opened in a new session.</p></li>
-<li><p>If on RStudio server, the current RStudio project is activated.</p></li>
-<li><p>Otherwise, the working directory and active project is changed.</p></li>
-</ul></td>
+      <th>description</th>
+      <td><p>A more detailed description of the analysis, details of
+the event etc.</p></td>
+    </tr>
+    <tr>
+      <th>start_day</th>
+      <td><p>First day to be included in the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>end_day</th>
+      <td><p>Last day to be included in the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>timezone</th>
+      <td><p>Timezone to be used for the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td><p>Name of a <a href='https://ggplot2.tidyverse.org/'>ggplot2</a> theme
+function to use for plots.</p></td>
+    </tr>
+    <tr>
+      <th>accent</th>
+      <td><p>Accent colour to use for plots.</p></td>
+    </tr>
+    <tr>
+      <th>accent2</th>
+      <td><p>Secondary accent colour to use for plots. If <code>NULL</code> this will
+be created based on <code>accent</code>.</p></td>
+    </tr>
+    <tr>
+      <th>kcore</th>
+      <td><p>k-core to use for filtering the mentions network.</p></td>
+    </tr>
+    <tr>
+      <th>topics_k</th>
+      <td><p>Number of topics to use for topic modelling.</p></td>
+    </tr>
+    <tr>
+      <th>bigram_filter</th>
+      <td><p>Number of co-occurances for filtering the bigram graph.</p></td>
+    </tr>
+    <tr>
+      <th>fixed</th>
+      <td><p>Whether to continue to search and download new tweets. Set to
+<code>TRUE</code> to fix the dataset used for analysis.</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Random seed set at the start of analysis.</p></td>
+    </tr>
+    <tr>
+      <th>dir</th>
+      <td><p>Directory to save the new analysis file.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Path to the newly created project, invisibly.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Based on <a href='https://github.com/r-lib/usethis/blob/master/R/create.R'>usethis::create_package()</a></p>
+    <p>Path to the newly created file, invisibly</p>
     
 
   </div>
@@ -167,8 +204,6 @@ recognized as a project by the <a href='https://here.r-lib.org'>here</a> or
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
           </ul>
 
   </div>
