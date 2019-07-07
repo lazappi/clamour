@@ -195,12 +195,12 @@ plot_list <- lapply(seq_along(days), function(idx) {
 })
 
 src_list <- lapply(seq_along(plot_list), function(idx) {
-    src <- c("#### Day {{idx}} {.unnumbered}",
-             "```{r tweets-top-users-day{{idx}}}",
-             "plot_list[[{{idx}}]]",
+    src <- c("#### Day <<idx>> {.unnumbered}",
+             "```{r tweets-top-users-day<<idx>>}",
+             "plot_list[[<<idx>>]]",
              "```",
              "")
-    knit_expand(text = src)
+    knit_expand(text = src, delim = c("<<", ">>"))
 })
 
 out <- knit_child(text = unlist(src_list))
@@ -228,12 +228,12 @@ plot_list <- lapply(seq_along(days), function(idx) {
 })
 
 src_list <- lapply(seq_along(plot_list), function(idx) {
-    src <- c("#### Day {{idx}} {.unnumbered}",
-             "```{r tweets-top-users-orig-day{{idx}}}",
-             "plot_list[[{{idx}}]]",
+    src <- c("#### Day <<idx>> {.unnumbered}",
+             "```{r tweets-top-users-orig-day<<idx>>}",
+             "plot_list[[<<idx>>]]",
              "```",
              "")
-    knit_expand(text = src)
+    knit_expand(text = src, delim = c("<<", ">>"))
 })
 
 out <- knit_child(text = unlist(src_list))
@@ -261,12 +261,12 @@ plot_list <- lapply(seq_along(days), function(idx) {
 })
 
 src_list <- lapply(seq_along(plot_list), function(idx) {
-    src <- c("#### Day {{idx}} {.unnumbered}",
-             "```{r tweets-top-users-retweets-day{{idx}}}",
-             "plot_list[[{{idx}}]]",
+    src <- c("#### Day <<idx>> {.unnumbered}",
+             "```{r tweets-top-users-retweets-day<<idx>>}",
+             "plot_list[[<<idx>>]]",
              "```",
              "")
-    knit_expand(text = src)
+    knit_expand(text = src, delim = c("<<", ">>"))
 })
 
 out <- knit_child(text = unlist(src_list))
@@ -381,15 +381,24 @@ tweets %>%
 
 ### Top 10 {.unnumbered}
 
-```{r most-retweeted}
-tweets %>% 
+```{r top-retweeted}
+top <- tweets %>% 
     filter(is.na(retweet_status_id)) %>%
     filter(retweet_count > 0) %>%
-    select(screen_name, text, retweet_count) %>% 
+    select(status_id, screen_name, text, retweet_count) %>%
     arrange(desc(retweet_count)) %>% 
     distinct() %>%
-    slice(1:10) %>% 
+    slice(1:10)
+
+top %>%
+    select(-status_id) %>% 
     kable(format = "html")
+```
+
+### Most retweeted {.unnumbered}
+
+```{r most-retweeted}
+tweet_shot(top$status_id[1])
 ```
 
 ## Likes {.tabset .tabset-pills}
@@ -421,14 +430,23 @@ tweets %>%
 
 ### Top 10 {.unnumbered}
 
-```{r most-favorited}
-tweets %>% 
+```{r top-favorited}
+top <- tweets %>% 
     filter(favorite_count > 0) %>%
-    select(screen_name, text, favorite_count) %>% 
+    select(status_id, screen_name, text, favorite_count) %>%
     arrange(desc(favorite_count)) %>% 
     distinct() %>%
-    slice(1:10) %>% 
-    kable()
+    slice(1:10)
+
+top %>%
+    select(-status_id) %>% 
+    kable(format = "html")
+```
+
+### Most likes {.unnumbered}
+
+```{r most-favorited}
+tweet_shot(top$status_id[1])
 ```
 
 ## Quotes {.tabset .tabset-pills}
@@ -461,19 +479,28 @@ tweets %>%
 
 ### Top 10 {.unnumbered}
 
-```{r most-quoted}
-tweets %>% 
+```{r top-quoted}
+top <- tweets %>% 
     filter(!is.na(quoted_status_id)) %>% 
     count(quoted_status_id) %>% 
     filter(n > 0) %>% 
     arrange(desc(n)) %>% 
-    inner_join(select(tweets, screen_name, quoted_status_id,
-                      is_retweet, text)) %>% 
+    inner_join(select(tweets, status_id, screen_name, quoted_status_id,
+                      is_retweet, text), by = "quoted_status_id") %>% 
     filter(is_retweet == FALSE) %>% 
-    select(screen_name, text, quote_count = n) %>%
+    select(status_id, screen_name, text, quote_count = n) %>%
     distinct() %>%
-    slice(1:10) %>%
-    kable()
+    slice(1:10)
+  
+top %>%
+    select(-status_id) %>%
+    kable(format = "html")
+```
+
+### Most quoted {.unnumbered}
+
+```{r most-quoted}
+tweet_shot(top$status_id[1])
 ```
 
 # Media {.tabset .tabset-pills}
@@ -628,12 +655,12 @@ topics_list <- topics %>%
     split(.$topic)
     
 src_list <- lapply(seq_along(topics_list), function(idx) {
-    src <- c("#### Topic {{idx}} {.unnumbered}",
-             "```{r topics-tweets-topic{{idx}}}",
-             "kable(topics_list[[{{idx}}]], format = 'html')",
+    src <- c("#### Topic <<idx>> {.unnumbered}",
+             "```{r topics-tweets-topic<<idx>>}",
+             "kable(topics_list[[<<idx>>]][, -1], format = 'html')",
              "```",
              "")
-    knit_expand(text = src)
+    knit_expand(text = src, delim = c("<<", ">>"))
 })
 
 out <- knit_child(text = unlist(src_list))

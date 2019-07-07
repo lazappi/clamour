@@ -62,6 +62,10 @@ library("ggraph")
 library("wordcloud")
 library("viridis")
 
+# Images
+library("webshot")
+library("magick")
+
 # Presentation
 library("knitr")
 

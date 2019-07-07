@@ -1,7 +1,7 @@
 Package: clamour
 Type: Package
 Title: Website for Twitter analysis results
-Version: 0.1.0.9004
+Version: 0.0.0.9005
 Date: 2019-07-07
 Authors@R:
     c(person("Luke", "Zappia", role = c("aut", "cre"),
