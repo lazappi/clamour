@@ -17,7 +17,7 @@
 #'   be created based on `accent`.
 #' @param kcore k-core to use for filtering the mentions network.
 #' @param topics_k Number of topics to use for topic modelling.
-#' @param bigram_filter Number of co-occurances for filtering the bigram graph.
+#' @param bigram_filter Number of co-occurrences for filtering the bigram graph.
 #' @param fixed Whether to continue to search and download new tweets. Set to
 #'   `TRUE` to fix the dataset used for analysis.
 #' @param seed Random seed set at the start of analysis.

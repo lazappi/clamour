@@ -54,6 +54,7 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     on.exit(usethis::proj_set(old_project), add = TRUE)
 
     usethis::use_directory("analysis")
+    usethis::use_directory("analysis/figures", ignore = TRUE)
     usethis::use_template("_site.yml", "analysis/_site.yml",
                           package = "clamour")
     usethis::use_template("index.Rmd", "analysis/index.Rmd",
@@ -90,6 +91,8 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     if (rstudio) {
         usethis::use_rstudio()
     }
+
+    usethis::use_template("README.md", "README.md", package = "clamour")
 
     libs <- readLines(fs::path_package("clamour",
                                        "templates/hashtag_template.Rmd"))

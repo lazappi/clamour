@@ -59,7 +59,7 @@ The result is the following directory structure:
 
 The [_rtweet_][rtweet] package is used to download tweets from Twitter but to
 do so it must first be authorised. The setup function will prompt you to run
-some code that should do this but if that is unsuccessul please refer to the
+some code that should do this but if that is unsuccessful please refer to the
 information on the [_rtweet_ website][rtweet].
 
 # Starting an analysis
@@ -103,7 +103,9 @@ minor modifications). Details on setting up GitHub pages are available
 3. Change the settings on GitHub to serve the files in the `docs/` directory
 
 By default your website will be available at a URL like 
-https://GITHUB-USER.github.io/REPOSITORY.
+https://GITHUB-USER.github.io/REPOSITORY. You can see what the example website
+looks like [here][example].
 
 [pages]: https://pages.github.com/ "GitHub pages"
 [rtweet]: https://rtweet.info/ "rtweet"
+[example]: https://lazappi.github.io/clamour-example "clamour example"

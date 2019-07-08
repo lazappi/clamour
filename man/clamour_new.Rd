@@ -37,7 +37,7 @@ be created based on \code{accent}.}
 
 \item{topics_k}{Number of topics to use for topic modelling.}
 
-\item{bigram_filter}{Number of co-occurances for filtering the bigram graph.}
+\item{bigram_filter}{Number of co-occurrences for filtering the bigram graph.}
 
 \item{fixed}{Whether to continue to search and download new tweets. Set to
 \code{TRUE} to fix the dataset used for analysis.}

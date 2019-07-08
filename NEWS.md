@@ -1,3 +1,8 @@
+# clamour 0.0.0.9006 (2019-07-08)
+
+* Add links to example website
+* Add README to template
+
 # clamour 0.0.0.9005 (2019-07-07)
 
 * Add tweet shots to template analysis

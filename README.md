@@ -8,7 +8,10 @@
 <!-- badges: end -->
 
 _clamour_ provides a template for setting up a website to display the results of
-analysis of Twitter hashtags.
+analysis of Twitter hashtags, more details are available on the
+[documentation website][clamour].
+
+You can see an example of the website produced by _clamour_ [here][example].
 
 ## Installation
 
@@ -36,3 +39,5 @@ By contributing to this project, you agree to abide by its terms.
 
 [usethis]: https://usethis.r-lib.org/ "usethis"
 [rtweet]: https://rtweet.info/ "rtweet"
+[clamour]: https://lazappi.github.io/clamour "clamour example"
+[example]: https://lazappi.github.io/clamour-example "clamour example"
