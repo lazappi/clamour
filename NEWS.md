@@ -1,3 +1,7 @@
+# clamour 0.0.0.9007 (2020-08-17)
+
+* Turn off table of contents on index and about page templates (Fixes #1)
+
 # clamour 0.0.0.9006 (2019-07-08)
 
 * Add links to example website

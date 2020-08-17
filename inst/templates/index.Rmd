@@ -1,5 +1,8 @@
 ---
 title: "Twitter stats"
+output:
+  html_document:
+    toc: no
 ---
 
 Analysis of the following Twitter hashtags:
