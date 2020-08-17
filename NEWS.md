@@ -1,3 +1,7 @@
+# clamour 0.0.0.9009 (2020-08-17)
+
+* Add analysis of other hashtags used (Fixes #4)
+
 # clamour 0.0.0.9008 (2020-08-17)
 
 * Add guards to tweet screenshots in template to catch when tweets have been

@@ -605,6 +605,35 @@ tweets %>%
                  colors = brewer.pal(6, "Spectral")))
 ```
 
+## Hashtags
+
+Other hashtags used 5 or more times.
+
+```{r hashtags}
+tweets %>% 
+    filter(is_retweet == FALSE) %>%
+    select(text) %>%
+    mutate(text = str_split(text, "[:space:]")) %>%
+    unnest(text) %>%
+    filter(str_detect(text, "^#")) %>%
+    mutate(
+        text = str_remove_all(text, "[:punct:]"),
+        text = str_to_lower(text),
+        text = stringi::stri_trans_general(text, "latin-ascii")
+    ) %>%
+    count(text) %>%
+    filter(
+        text != str_remove(params$hashtag, "#"), 
+        n >= 5
+    ) %>%
+    ggplot(aes(reorder(text, n), n)) +
+        geom_col(fill = params$accent) +
+        coord_flip() +
+        labs(x = "Hashtags", y = "Tweets",
+             title = paste("Other hashtags used with", params$hashtag),
+             subtitle = "alternative hashtags used at least 5 times")
+```
+
 ## Bigram graph
 
 Words that were tweeted next to each other at least `r params$bigram_filter`
