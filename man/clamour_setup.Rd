@@ -4,8 +4,7 @@
 \alias{clamour_setup}
 \title{Setup a clamour project}
 \usage{
-clamour_setup(path, rstudio = rstudioapi::isAvailable(),
-  open = interactive())
+clamour_setup(path, rstudio = rstudioapi::isAvailable(), open = interactive())
 }
 \arguments{
 \item{path}{A path for the project. If it exists it will be used. If it does
