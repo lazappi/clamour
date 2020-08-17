@@ -1,3 +1,9 @@
+# clamour 0.0.0.9010 (2020-08-17)
+
+* Add count of tweets and retweets to links table
+* Shorten link url to save space
+* Add regex for GitLab
+
 # clamour 0.0.0.9009 (2020-08-17)
 
 * Add analysis of other hashtags used (Fixes #4)

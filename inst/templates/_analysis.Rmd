@@ -741,25 +741,38 @@ out <- knit_child(text = unlist(src_list))
 
 `r out`
 
-# Software
+# Links
 
-Software mentioned in Tweets with links to GitHub, BitBucket, Bioconductor or
-CRAN.
+Links to GitHub, GitLab, BitBucket, Bioconductor or CRAN mentioned in Tweets.
 
-```{r software}
-urls <- discard(tweets$urls_expanded_url, ~ all(is.na(.x))) %>%
+```{r links}
+url_counts <- tweets %>%
+    unnest(urls_expanded_url) %>%
+    group_by(urls_expanded_url) %>%
+    summarise(
+        Tweets   = sum(!is_retweet),
+        Retweets = sum(is_retweet),
+        .groups = "drop"
+    ) %>%
+    mutate(Total = Tweets + Retweets)
+
+urls <- tweets %>%
+    pull(urls_expanded_url) %>%
+    discard(~ all(is.na(.x))) %>%
     flatten_chr() %>%
     unique()
 
 regexes <- list(
     c(Type = "GitHub",
-      re = "http[s]?://github.com/[\\w-]+/([\\w-]+).*"),
+      re = "http[s]?://github.com/[\\w-]+/([A-Za-z0-9_\\.-]+).*"),
+    c(Type = "GitLab",
+      re = "http[s]?://gitlab.com/[\\w-]+/([A-Za-z0-9_\\.-]+).*"),
     c(Type = "BitBucket",
-      re = "http[s]?://bitbucket.org/[\\w-]+/([\\w-]+).*"),
-    c(Type = "Bioconductor",
-      re = "https://bioconductor.org/packages.*/(\\w+).*"),
+      re = "http[s]?://bitbucket.org/[\\w-]+/([A-Za-z0-9_\\.-]+).*"),
+    c(Type = "Bioc",
+      re = "https://bioconductor.org/packages.*/([A-Za-z0-9_\\.-]+).*"),
     c(Type = "CRAN",
-      re = "https://cran.*/packages/(\\w+).*")
+      re = "https://cran.*/packages/([A-Za-z0-9_\\.-]+).*")
 )
 
 software <- map_df(regexes, function(re) {
@@ -771,17 +784,25 @@ software <- map_df(regexes, function(re) {
 }) %>%
     drop_na() %>%
     mutate(
-        Link = case_when(
+        LinkURL = case_when(
             Type == "GitHub" ~ str_to_lower(str_replace(URL, "http:", "https:")),
+            Type == "GitLab" ~ str_to_lower(str_replace(URL, "http:", "https:")),
             Type == "BitBucket" ~ str_to_lower(str_replace(URL, "http:", "https:")),
-            Type == "Bioconductor" ~ paste0("https://bioconductor.org/packages/", Name),
+            Type == "Bioc" ~ paste0("https://bioconductor.org/packages/", Name),
             Type == "CRAN" ~ paste0("https://CRAN.R-project.org/package=", Name),
             TRUE ~ URL
         )
     ) %>%
-    select(-URL) %>%
-    distinct() %>%
-    arrange(Name)
+    mutate(
+        Link = str_remove(LinkURL, "https://"),
+        Link = str_remove(Link, "github.com/"),
+        Link = str_remove(Link, "gitlab.com/"),
+        Link = str_remove(Link, "bitbucket.org/"),
+        Link = paste0("[", str_trunc(Link, 70), "](", LinkURL, ")")
+    ) %>% 
+    left_join(url_counts, by = c(URL = "urls_expanded_url")) %>%
+    arrange(desc(Total), desc(Tweets), desc(Retweets), Name) %>%
+    select(Name, Tweets, Retweets, Type, Link)
 ```
 
 `r if (nrow(software) >= 1) kable(software)`
