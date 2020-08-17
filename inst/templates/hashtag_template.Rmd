@@ -55,10 +55,17 @@ library("igraph")
 library("tidytext")
 library("topicmodels")
 
+# HTML
+library("rvest")
+
+# Emojis
+library("emo") # https://github.com/hadley/emo
+
 # Visualisation
 library("ggplot2")
 library("ggrepel")
 library("ggraph")
+library("ggtext")
 library("wordcloud")
 library("viridis")
 

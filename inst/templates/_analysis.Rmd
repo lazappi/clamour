@@ -629,10 +629,50 @@ tweets %>%
     ggplot(aes(reorder(text, n), n)) +
         geom_col(fill = params$accent) +
         coord_flip() +
-        labs(x = "Hashtags", y = "Tweets",
+        labs(x = "Hashtag", y = "Tweets",
              title = paste("Other hashtags used with", params$hashtag),
              subtitle = "alternative hashtags used at least 5 times")
 ```
+
+## Emojis
+
+```{r emojis}
+# Based on https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/
+emoji_to_link <- function(emoji) {
+    paste0("https://emojipedia.org/emoji/", emoji) %>%
+    read_html() %>%
+    html_nodes("tr td a") %>%
+    .[1] %>%
+    html_attr("href") %>%
+    paste0("https://emojipedia.org/", .) %>%
+    read_html() %>%
+    html_node('div[class="vendor-image"] img') %>%
+    html_attr("src")
+}
+
+link_to_img <- function(x, size = 25) {
+    paste0("<img src='", x, "' width='", size, "'/>")
+}
+
+tweets %>%
+    filter(is_retweet == FALSE) %>%
+    mutate(emoji = emo::ji_extract_all(text)) %>%
+    unnest(emoji) %>%
+    count(emoji, sort = TRUE) %>%
+    slice_max(n, n = 10) %>%
+    mutate(
+        url   = map_chr(emoji, slowly(~emoji_to_link(.x), rate_delay(1))),
+        label = link_to_img(url)
+    ) %>%
+    ggplot(aes(reorder(label, n), n)) +
+        geom_col(fill = params$accent) +
+        coord_flip() +
+        theme(axis.text.y = element_markdown()) +
+        labs(x = "Emoji", y = "Tweets",
+             title = paste(params$hashtag, "emojis"),
+             subtitle = "10 most commonly used emojis in original tweets")
+```
+
 
 ## Bigram graph
 
