@@ -1,3 +1,9 @@
+# clamour 0.0.0.9008 (2020-08-17)
+
+* Add guards to tweet screenshots in template to catch when tweets have been
+  deleted
+* Add tweets by source plot (Fixes #2)
+
 # clamour 0.0.0.9007 (2020-08-17)
 
 * Turn off table of contents on index and about page templates (Fixes #1)

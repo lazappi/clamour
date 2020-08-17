@@ -274,9 +274,11 @@ out <- knit_child(text = unlist(src_list))
 
 `r if (Sys.Date() >= start_date) out`
 
-# Sources
+# Sources {.tabset .tabset-pills}
 
-```{r tweets-top-sources}
+## Users {.unnumbered}
+
+```{r tweets-top-sources-users}
 tweets %>% 
     distinct(screen_name, source) %>%
     count(source) %>% 
@@ -284,9 +286,27 @@ tweets %>%
     ggplot(aes(reorder(source, n), n)) +
         geom_col(fill = params$accent) +
         coord_flip() + 
+        labs(x = "Source", y = "Users",
+             title = paste(params$hashtag, "users by source"),
+             subtitle = "sources with at least 5 distinct users")
+```
+
+## Tweets {.unnumbered}
+
+```{r tweets-top-sources}
+tweets %>% 
+    count(source, is_retweet) %>%
+    group_by(source) %>%
+    mutate(total_n = sum(n)) %>%
+    ungroup() %>%
+    filter(total_n >= 5) %>% 
+    ggplot(aes(reorder(source, total_n), n, fill = !is_retweet)) +
+        geom_col() +
+        coord_flip() +
+        scale_fill_tweet_type +
         labs(x = "Source", y = "Tweets",
              title = paste(params$hashtag, "tweets by source"),
-             subtitle = "distinct(screen_name, source) with >= 5 tweets")
+             subtitle = "sources with at least 5 tweets")
 ```
 
 # Networks
@@ -398,7 +418,15 @@ top %>%
 ### Most retweeted {.unnumbered}
 
 ```{r most-retweeted}
-tweet_shot(top$status_id[1])
+tryCatch({
+    tweet_shot(top$status_id[1])
+}, error = function(msg) {
+    if (grepl("Twitter status not found", msg)) {
+        "Tweet not found, it may have been deleted "
+    } else {
+        stop(msg)
+    }
+})
 ```
 
 ## Likes {.tabset .tabset-pills}
@@ -446,7 +474,15 @@ top %>%
 ### Most likes {.unnumbered}
 
 ```{r most-favorited}
-tweet_shot(top$status_id[1])
+tryCatch({
+    tweet_shot(top$status_id[1])
+}, error = function(msg) {
+    if (grepl("Twitter status not found", msg)) {
+        "Tweet not found, it may have been deleted "
+    } else {
+        stop(msg)
+    }
+})
 ```
 
 ## Quotes {.tabset .tabset-pills}
@@ -500,7 +536,15 @@ top %>%
 ### Most quoted {.unnumbered}
 
 ```{r most-quoted}
-tweet_shot(top$status_id[1])
+tryCatch({
+    tweet_shot(top$status_id[1])
+}, error = function(msg) {
+    if (grepl("Twitter status not found", msg)) {
+        "Tweet not found, it may have been deleted "
+    } else {
+        stop(msg)
+    }
+})
 ```
 
 # Media {.tabset .tabset-pills}
