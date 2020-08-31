@@ -43,7 +43,7 @@ tweets %>%
     geom_col() +
     scale_fill_tweet_type +  
     labs(x = "Date", y = "Tweets",
-         title = paste(params$hashtag, "tweets per day"))
+         title = paste(hashtags_query, "tweets per day"))
 ```
 
 ## Tweets by day and time
@@ -64,7 +64,9 @@ tweets_days %>%
         scale_fill_tweet_type +
         facet_grid(strftime(date, "%b %d") ~ .) + 
         labs(x = "Hour", y = "Tweets",
-             title = paste(params$hashtag, "tweets by time of day"))
+             title = paste(hashtags_query, "tweets by time of day"),
+             subtitle = paste("tweets between", params$start_day, "and",
+                              params$end_day))
 ```
 
 # Users
@@ -87,7 +89,7 @@ tweets %>%
         scale_fill_tweet_type +
         coord_flip() + 
         labs(x = "Screen Name", y = "Tweets",
-             title = paste(params$hashtag, "tweets by user"),
+             title = paste(hashtags_query, "tweets by user"),
              subtitle = "top 20 users")
 ```
 
@@ -103,7 +105,7 @@ tweets %>%
         geom_col(fill = params$accent) +
         coord_flip() + 
         labs(x = "Screen Name", y = "Tweets",
-             title = paste(params$hashtag, "tweets by user"),
+             title = paste(hashtags_query, "tweets by user"),
              subtitle = "top 20 users (original)")
 ```
 
@@ -119,7 +121,7 @@ tweets %>%
         geom_col(fill = params$accent2) +
         coord_flip() + 
         labs(x = "Screen Name", y = "Tweets",
-             title = paste(params$hashtag, "tweets by user"),
+             title = paste(hashtags_query, "tweets by user"),
              subtitle = "top 20 users (retweets)")
 ```
 
@@ -139,7 +141,7 @@ ggplot(plot_data, aes(total, (orig / total) - (retweet / total))) +
                     aes(label = screen_name)) +
     labs(x = "Total tweets",
          y = "<<< more retweets : more original tweets >>>",
-         title = paste(params$hashtag, "original tweets compared to retweets"),
+         title = paste(hashtags_query, "original tweets compared to retweets"),
          subtitle = "top 10 users labelled")
 ```
 
@@ -162,7 +164,7 @@ tweets %>%
         scale_colour_tweet_type +
         facet_wrap(~ screen_name, ncol = 1) +
         labs(x = "Datetime",
-             title = paste(params$hashtag, "top users timeline"),
+             title = paste(hashtags_query, "top users timeline"),
              subtitle = "when the top 5 users tweeted") + 
         theme(axis.title.y = element_blank(),
               axis.text.y = element_blank(),
@@ -190,7 +192,7 @@ plot_list <- lapply(seq_along(days), function(idx) {
             scale_fill_tweet_type +
             coord_flip() + 
             labs(x = "Screen Name", y = "Tweets",
-                 title = paste(params$hashtag, "tweets by user, Day", idx),
+                 title = paste(hashtags_query, "tweets by user, Day", idx),
                  subtitle = "top 20 users")
 })
 
@@ -223,7 +225,7 @@ plot_list <- lapply(seq_along(days), function(idx) {
             geom_col(fill = params$accent) +
             coord_flip() +
             labs(x = "Screen Name", y = "Tweets",
-                 title = paste(params$hashtag, "tweets by user, Day", idx),
+                 title = paste(hashtags_query, "tweets by user, Day", idx),
                  subtitle = "top 20 users (original)")
 })
 
@@ -256,7 +258,7 @@ plot_list <- lapply(seq_along(days), function(idx) {
             geom_col(fill = params$accent2) +
             coord_flip() +
             labs(x = "Screen Name", y = "Tweets",
-                 title = paste(params$hashtag, "tweets by user, Day", idx),
+                 title = paste(hashtags_query, "tweets by user, Day", idx),
                  subtitle = "top 20 users (retweets)")
 })
 
@@ -287,7 +289,7 @@ tweets %>%
         geom_col(fill = params$accent) +
         coord_flip() + 
         labs(x = "Source", y = "Users",
-             title = paste(params$hashtag, "users by source"),
+             title = paste(hashtags_query, "users by source"),
              subtitle = "sources with at least 5 distinct users")
 ```
 
@@ -305,7 +307,7 @@ tweets %>%
         coord_flip() +
         scale_fill_tweet_type +
         labs(x = "Source", y = "Tweets",
-             title = paste(params$hashtag, "tweets by source"),
+             title = paste(hashtags_query, "tweets by source"),
              subtitle = "sources with at least 5 tweets")
 ```
 
@@ -385,7 +387,7 @@ tweets %>%
     geom_col() +
         scale_fill_tweet_type +
         labs(x = "Is retweet", y = "Tweets",
-             title = paste(params$hashtag, "tweets by retweet status"))
+             title = paste(hashtags_query, "tweets by retweet status"))
 ```
 
 ### Count {.unnumbered}
@@ -395,7 +397,7 @@ tweets %>%
     ggplot(aes(retweet_count)) +
         geom_histogram(bins = max(tweets$retweet_count), fill = params$accent) +
         labs(x = "Retweet count", y = "Tweets",
-             title = paste(params$hashtag,
+             title = paste(hashtags_query,
                            "distribution of retweets per tweet"))
 ```
 
@@ -441,7 +443,7 @@ tweets %>%
         geom_col() + 
         scale_fill_tweet_type +
         labs(x = "Has like", y = "Tweets",
-             title = paste(params$hashtag, "tweets by liked status"))
+             title = paste(hashtags_query, "tweets by liked status"))
 ```
 
 ### Count {.unnumbered}
@@ -452,7 +454,7 @@ tweets %>%
         geom_histogram(bins = max(tweets$favorite_count),
                        fill = params$accent) +
         labs(x = "Like count", y = "Tweets",
-             title = paste(params$hashtag,
+             title = paste(hashtags_query,
                            "distribution of likes per tweet"))
 ```
 
@@ -496,7 +498,7 @@ tweets %>%
         geom_col() +
         scale_fill_tweet_type +
         labs(x = "Is quote", y = "Tweets",
-             title = paste(params$hashtag, "tweets by quote status"))
+             title = paste(hashtags_query, "tweets by quote status"))
 ```
 
 ### Count {.unnumbered}
@@ -508,7 +510,7 @@ tweets %>%
     ggplot(aes(n)) +
         geom_histogram(bins = 10, fill = params$accent) +
         labs(x = "Quote count", y = "Tweets",
-             title = paste(params$hashtag,
+             title = paste(hashtags_query,
                            "distribution of quotes per tweet")) + 
         scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2))
 ```
@@ -559,7 +561,7 @@ tweets %>%
         geom_col() +
         scale_fill_tweet_type +
         labs(x = "Has media", y = "Tweets",
-             title = paste(params$hashtag, "tweets by media status"))
+             title = paste(hashtags_query, "tweets by media status"))
 ```
 
 ## Top 10 {.unnumbered}
@@ -595,7 +597,7 @@ tweets %>%
     filter(is_retweet == FALSE) %>% 
     unnest_tokens(word, text) %>% 
     select(word) %>% 
-    filter(!word %in% c(gsub("#", "", tolower(params$hashtag)),
+    filter(!word %in% c(gsub("#", "", tolower(hashtags_vec)),
                         "https", "t.co", "amp"),
            !word %in% tolower(tweets$screen_name), 
            !grepl("^\\d+$", word)) %>% 
@@ -623,14 +625,14 @@ tweets %>%
     ) %>%
     count(text) %>%
     filter(
-        text != str_remove(params$hashtag, "#"), 
+        !(text %in% str_remove(hashtags_vec, "#")), 
         n >= 5
     ) %>%
     ggplot(aes(reorder(text, n), n)) +
         geom_col(fill = params$accent) +
         coord_flip() +
         labs(x = "Hashtags", y = "Tweets",
-             title = paste("Other hashtags used with", params$hashtag),
+             title = paste("Other hashtags used with", hashtags_query),
              subtitle = "alternative hashtags used at least 5 times")
 ```
 
@@ -646,12 +648,12 @@ tweets %>%
     unnest_tokens(bigram, text, token = "ngrams", n = 2) %>%
     separate(bigram, c("word1", "word2"), sep = " ") %>%
     filter(!word1 %in% stop_words$word,
-           !word1 %in% c(gsub("#", "", tolower(params$hashtag)),
+           !word1 %in% c(gsub("#", "", tolower(hashtags_vec)),
                          "https", "t.co", "amp"),
            !word1 %in% tolower(tweets$screen_name), 
            !grepl("^\\d+$", word1)) %>%
     filter(!word2 %in% stop_words$word,
-           !word2 %in% c(gsub("#", "", tolower(params$hashtag)),
+           !word2 %in% c(gsub("#", "", tolower(hashtags_vec)),
                          "https", "t.co", "amp"),
            !word2 %in% tolower(tweets$screen_name), 
            !grepl("^\\d+$", word2)) %>%
@@ -680,7 +682,7 @@ topics <- tweets %>%
     select(document = status_id, text) %>%
     unnest_tokens(word, text) %>%
     filter(!word %in% stop_words$word,
-           !word %in% c(gsub("#", "", tolower(params$hashtag)),
+           !word %in% c(gsub("#", "", tolower(hashtags_vec)),
                         "https", "t.co", "amp"),
            !word %in% tolower(tweets$screen_name), 
            !grepl("^\\d+$", word)) %>%
@@ -706,7 +708,7 @@ topics %>%
         labs(y = "beta (occurence in topics)",
              title = "Topic modelling",
              subtitle = paste("Top terms for", params$topics_k,
-                              "LDA topics associated with", params$hashtag)) + 
+                              "LDA topics associated with", hashtags_query)) + 
         theme(axis.title.y = element_blank())
 ```
 

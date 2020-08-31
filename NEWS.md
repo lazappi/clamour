@@ -1,3 +1,5 @@
+* Adapt to allow multiple hashtags (Fixes #3)
+
 # clamour 0.0.0.9010 (2020-08-17)
 
 * Add count of tweets and retweets to links table
