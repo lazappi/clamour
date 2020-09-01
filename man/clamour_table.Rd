@@ -4,8 +4,10 @@
 \alias{clamour_table}
 \title{clamour table}
 \usage{
-clamour_table(path = ".", ignore = c("index.Rmd", "about.Rmd",
-  "_analysis.Rmd"))
+clamour_table(
+  path = ".",
+  ignore = c("index.Rmd", "about.Rmd", "_analysis.Rmd")
+)
 }
 \arguments{
 \item{path}{Path to directory to search for \code{.Rmd} files}

@@ -1,5 +1,8 @@
 ---
 title: "About"
+output:
+  html_document:
+    toc: no
 ---
 
 This website displays the results of analysing Twitter activity for various

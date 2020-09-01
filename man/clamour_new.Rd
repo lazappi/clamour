@@ -4,17 +4,30 @@
 \alias{clamour_new}
 \title{New clamour analysis}
 \usage{
-clamour_new(name, hashtag, description = paste("An analysis of",
-  hashtag), start_day = Sys.Date(), end_day = Sys.Date() + 1,
-  timezone = Sys.timezone(), theme = "theme_light",
-  accent = "dodgerblue", accent2 = NULL, kcore = 2, topics_k = 6,
-  bigram_filter = 3, fixed = FALSE, seed = 1, dir = "analysis")
+clamour_new(
+  name,
+  hashtag,
+  description = paste("An analysis of", hashtag),
+  start_day = Sys.Date(),
+  end_day = Sys.Date() + 1,
+  timezone = Sys.timezone(),
+  theme = "theme_light",
+  accent = "dodgerblue",
+  accent2 = NULL,
+  kcore = 2,
+  topics_k = 6,
+  bigram_filter = 3,
+  fixed = FALSE,
+  seed = 1,
+  dir = "analysis"
+)
 }
 \arguments{
 \item{name}{Name of the analysis. This is used to name files so should
 usually be short and simple.}
 
-\item{hashtag}{The hashtag to use for this analysis, starting with "#".}
+\item{hashtag}{The hashtag to use for this analysis, starting with "#". Can
+also be a vector of hashtags.}
 
 \item{description}{A more detailed description of the analysis, details of
 the event etc.}

@@ -4,8 +4,7 @@
 \alias{clamour_list}
 \title{clamour list}
 \usage{
-clamour_list(path = ".", ignore = c("index.Rmd", "about.Rmd",
-  "_analysis.Rmd"))
+clamour_list(path = ".", ignore = c("index.Rmd", "about.Rmd", "_analysis.Rmd"))
 }
 \arguments{
 \item{path}{Path to directory to search for \code{.Rmd} files}

@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Luke Zappia \email{luke@lazappi.id.au} (0000-0001-7744-8565)
+\strong{Maintainer}: Luke Zappia \email{luke@lazappi.id.au} (\href{https://orcid.org/0000-0001-7744-8565}{ORCID})
 
 }
 \keyword{internal}
