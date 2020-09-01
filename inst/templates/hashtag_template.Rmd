@@ -31,13 +31,19 @@ source(here::here("R", "knitr-options.R"))
 source(here::here("R", "libraries.R"))
 ```
 
-**Parameters**
+<p>
+  <button class="btn btn-primary" data-toggle="collapse" data-target="#Parameters">
+    Parameters
+  </button>
+</p>
 
+<div id="Parameters" class="collapse">
 ```{r params}
 params_table <- data.frame(Parameter = names(params), Value = unlist(params))
 
 kable(params_table, row.names = FALSE)
 ```
+</div>
 
 ```{r load}
 cache_file <- here("data", paste0(DOCNAME, ".Rds"))
@@ -47,19 +53,30 @@ tweets <- clamour_load_tweets(hashtags_query, cache_file,
                               timezone = params$timezone, fixed = params$fixed)
 ```
 
-# Introduction
+# Introduction {.unnumbered}
 
 An analysis of tweets for the query `r hashtags_query` related to
 {{DESCRIPTION}} from `r params$start_day` to `r params$end_day`. A total of
 `r nrow(tweets)` tweets from `r  length(unique(tweets$screen_name))` users were
 collected using the **{rtweet}** R package.
 
+<!-- This chunk adds the template analysis -->
 ```{r analysis, child = "_analysis.Rmd"}
-# This chunk adds the template analysis
+
 ```
+
+<!-- Any additional analysis can go here -->
 
 # Session info {.unnumbered}
 
+<p>
+  <button class="btn btn-primary" data-toggle="collapse" data-target="#SessionInfo">
+    Session info
+  </button>
+</p>
+
+<div id="SessionInfo" class="collapse">  
 ```{r session-info}
 sessionInfo()
 ```
+</div>
