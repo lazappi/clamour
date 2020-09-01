@@ -1,3 +1,11 @@
+# clamour 0.0.0.9011 (2020-09-01)
+
+* Adapt analysis to allow multiple query hashtags (Fixes #3)
+* Add plot of query hashtags
+* Update `clamour_new()` to handle multiple hashtags
+* Update introduction in hashtag template
+* Limit number shown in hashtags plot
+
 # clamour 0.0.0.9010 (2020-08-17)
 
 * Add count of tweets and retweets to links table

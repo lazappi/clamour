@@ -4,7 +4,8 @@
 #'
 #' @param name Name of the analysis. This is used to name files so should
 #'   usually be short and simple.
-#' @param hashtag The hashtag to use for this analysis, starting with "#".
+#' @param hashtag The hashtag to use for this analysis, starting with "#". Can
+#'   also be a vector of hashtags.
 #' @param description A more detailed description of the analysis, details of
 #'   the event etc.
 #' @param start_day First day to be included in the analysis.
@@ -33,7 +34,7 @@ clamour_new <- function(name, hashtag,
                         topics_k = 6, bigram_filter = 3,
                         fixed = FALSE, seed = 1, dir = "analysis") {
 
-    if (!startsWith(hashtag, "#")) {
+    if (!all(startsWith(hashtag, "#"))) {
         usethis::ui_stop(
             "hashtag should start with #: {usethis::ui_value(hashtag)}"
         )

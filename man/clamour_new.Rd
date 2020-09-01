@@ -26,7 +26,8 @@ clamour_new(
 \item{name}{Name of the analysis. This is used to name files so should
 usually be short and simple.}
 
-\item{hashtag}{The hashtag to use for this analysis, starting with "#".}
+\item{hashtag}{The hashtag to use for this analysis, starting with "#". Can
+also be a vector of hashtags.}
 
 \item{description}{A more detailed description of the analysis, details of
 the event etc.}

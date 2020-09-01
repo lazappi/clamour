@@ -1,7 +1,7 @@
 ---
 title: "{{TITLE}}"
 subtitle: "{{DESCRIPTION}}"
-date: "`r Sys.time()`"
+date: "Last built: `r Sys.time()`"
 params:
     hashtag: "{{HASHTAG}}"
     # Times
@@ -84,6 +84,8 @@ kable(params_table, row.names = FALSE)
 
 ```{r load}
 data_file <- here("data", paste0(DOCNAME, ".Rds"))
+hashtags_vec <- str_split(params$hashtag, ",")[[1]]
+hashtags_query <- paste(hashtags_vec, collapse = " OR ")
 
 if (params$fixed) {
     if (file_exists(data_file)) {
@@ -96,7 +98,7 @@ if (params$fixed) {
         existing_tweets <- readRDS(data_file)
         message(nrow(existing_tweets), " tweets already downloaded")
         
-        new_tweets <- search_tweets(params$hashtag, 10000) %>%
+        new_tweets <- search_tweets(hashtags_query, 10000) %>%
             mutate(collected_at = Sys.time())
         message("Found ", nrow(new_tweets), " tweets")
         
@@ -107,7 +109,7 @@ if (params$fixed) {
             ungroup()
         message("Dataset now contains ", nrow(tweets), " tweets")
     } else {
-        tweets <- search_tweets(params$hashtag, 10000) %>%
+        tweets <- search_tweets(hashtags_query, 10000) %>%
             mutate(collected_at = Sys.time())
         message("Found ", nrow(tweets), " tweets")
     }
@@ -116,17 +118,18 @@ if (params$fixed) {
 
 tweets <- tweets %>%
     mutate(
-        date = as_date(created_at, tz = params$timezone),
+        date     = as_date(created_at, tz = params$timezone),
         datetime = as_datetime(created_at, tz = params$timezone),
-        hour = hour(datetime)
+        hour     = hour(datetime)
     )
 ```
 
 # Introduction
 
-An analysis of tweets from the `r params$hashtag` hashtag. A total of
-`r nrow(tweets)` tweets from `r length(unique(tweets$screen_name))` users were 
-collected using the `rtweet` R package.
+An analysis of tweets for the query `r hashtag_query` related to {{DESCRIPTION}} 
+from `r params$start_day` to `r params$end_day`. A total of `r nrow(tweets)`
+tweets from `r  length(unique(tweets$screen_name))` users were  collected using
+the **{rtweet}** R package.
 
 ```{r analysis, child = "_analysis.Rmd"}
 # This chunk adds the template analysis
