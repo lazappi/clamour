@@ -27,6 +27,7 @@ library("emo") # https://github.com/hadley/emo
 library("ggplot2")
 library("ggrepel")
 library("ggraph")
+library("ggtext")
 library("wordcloud")
 library("viridis")
 
