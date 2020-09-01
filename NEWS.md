@@ -1,4 +1,5 @@
-* Adapt to allow multiple hashtags (Fixes #3)
+* Adapt analysis to allow multiple hashtags (Fixes #3)
+* Add plot of query hashtags
 
 # clamour 0.0.0.9010 (2020-08-17)
 

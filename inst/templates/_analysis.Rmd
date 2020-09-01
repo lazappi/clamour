@@ -31,6 +31,23 @@ scale_colour_tweet_type = scale_colour_manual(
 )
 ```
 
+```{r query-hashtags, eval = length(hashtags_vec) > 1}
+asis_output("## Query hashtags\n")
+
+plot_data <- map_dfr(hashtags_vec, function(.hashtag) {
+    tweets %>%
+        filter(str_detect(tolower(text), tolower(.hashtag))) %>%
+        group_by(is_retweet) %>%
+        summarise(Count = n()) %>%
+        mutate(Hashtag = .hashtag)
+})
+
+ggplot(plot_data, aes(x = Hashtag, y = Count, fill = !is_retweet)) +
+    geom_col() +
+    scale_fill_tweet_type +
+    labs(title = "Number of tweets for each query hashtag")
+```
+
 # Timeline
 
 ## Tweets by day
