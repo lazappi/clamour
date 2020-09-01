@@ -55,8 +55,8 @@ clamour_load_tweets <- function(query, cache_file = NULL,
         if (cache_exists) {
             tweets <- new_tweets %>%
                 rbind(cached_tweets) %>%
-                dplyr::group_by(status_id) %>%
-                dplyr::top_n(1, collected_at) %>%
+                dplyr::group_by(.data$status_id) %>%
+                dplyr::top_n(1, .data$collected_at) %>%
                 dplyr::ungroup()
         } else {
             tweets <- new_tweets
@@ -71,9 +71,9 @@ clamour_load_tweets <- function(query, cache_file = NULL,
 
     tweets <- tweets %>%
         dplyr::mutate(
-            date     = lubridate::as_date(created_at, tz = timezone),
-            datetime = lubridate::as_datetime(created_at, tz = timezone),
-            hour     = lubridate::hour(datetime)
+            date     = lubridate::as_date(.data$created_at, tz = timezone),
+            datetime = lubridate::as_datetime(.data$created_at, tz = timezone),
+            hour     = lubridate::hour(.data$datetime)
         )
     usethis::ui_info(paste(
         "Full dataset contains", usethis::ui_value(nrow(tweets)), "tweets"

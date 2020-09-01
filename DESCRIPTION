@@ -24,7 +24,8 @@ Imports:
     magrittr,
     rtweet,
     dplyr,
-    lubridate
+    lubridate,
+    rlang
 Suggests: 
     spelling,
     testthat (>= 2.1.0),
