@@ -2,6 +2,7 @@
 * Add plot of query hashtags
 * Update `clamour_new()` to handle multiple hashtags
 * Update introduction in hashtag template
+* Limit number shown in hashtags plot
 
 # clamour 0.0.0.9010 (2020-08-17)
 

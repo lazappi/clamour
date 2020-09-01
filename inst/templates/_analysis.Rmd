@@ -642,15 +642,17 @@ tweets %>%
     ) %>%
     count(text) %>%
     filter(
-        !(text %in% str_remove(hashtags_vec, "#")), 
+        !(text %in% str_remove(tolower(hashtags_vec), "#")),
         n >= 5
     ) %>%
+    slice_max(n, n = 30) %>%
     ggplot(aes(reorder(text, n), n)) +
         geom_col(fill = params$accent) +
         coord_flip() +
-        labs(x = "Hashtags", y = "Tweets",
+        labs(x = "Hashtag", y = "Tweets",
              title = paste("Other hashtags used with", hashtags_query),
-             subtitle = "alternative hashtags used at least 5 times")
+             subtitle = paste("30 most common alternative hashtags used at",
+                              "least 5 times in original tweets"))
 ```
 
 ## Bigram graph
