@@ -30,6 +30,9 @@ library("magick")
 
 # Presentation
 library("knitr")
+# Stop kableExtra automatically setting format = "HTML"
+options(kableExtra.auto_format = FALSE)
+library("kableExtra")
 
 # File paths
 library("here")

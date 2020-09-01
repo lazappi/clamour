@@ -751,7 +751,8 @@ topics_list <- topics %>%
 src_list <- lapply(seq_along(topics_list), function(idx) {
     src <- c("#### Topic <<idx>> {.unnumbered}",
              "```{r topics-tweets-topic<<idx>>}",
-             "kable(topics_list[[<<idx>>]][, -1], format = 'html')",
+             "kable(topics_list[[<<idx>>]][, -1], format = 'html') %>%",
+             "kable_styling(bootstrap_options = c('striped', 'condensed'))",
              "```",
              "")
     knit_expand(text = src, delim = c("<<", ">>"))
