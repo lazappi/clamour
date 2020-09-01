@@ -1,3 +1,11 @@
+# clamour 0.0.0.9012 (2020-09-01)
+
+* Add libraries script to templates
+* Add knitr options script to templates
+* Add `clamour_load_tweets()` function
+* Add buttons to hide parameters and session info
+* Improve formatting of topics tweets tables
+
 # clamour 0.0.0.9011 (2020-09-01)
 
 * Adapt analysis to allow multiple query hashtags (Fixes #3)
