@@ -1,3 +1,5 @@
+* Add libraries script to templates
+
 # clamour 0.0.0.9011 (2020-09-01)
 
 * Adapt analysis to allow multiple query hashtags (Fixes #3)

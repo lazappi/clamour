@@ -15,7 +15,7 @@
 #'   [rprojroot](https://rprojroot.r-lib.org) packages.
 #' @param open If `TRUE`, [activates][usethis::proj_activate()] the new project:
 #'
-#'   * If RStudio desktop, the package is opened in a new session.
+#'   * If using RStudio desktop, the package is opened in a new session.
 #'   * If on RStudio server, the current RStudio project is activated.
 #'   * Otherwise, the working directory and active project is changed.
 #'
@@ -79,6 +79,10 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
         fixed         = TRUE,
         seed          = 1
     )
+
+    usethis::use_directory("R")
+    usethis::use_template("libraries.R", "R/libraries.R",
+                          package = "clamour")
 
     usethis::use_directory("docs")
     usethis::use_directory("data")
