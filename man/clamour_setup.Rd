@@ -18,7 +18,7 @@ recognized as a project by the \href{https://here.r-lib.org}{here} or
 
 \item{open}{If \code{TRUE}, \link[usethis:proj_activate]{activates} the new project:
 \itemize{
-\item If RStudio desktop, the package is opened in a new session.
+\item If using RStudio desktop, the package is opened in a new session.
 \item If on RStudio server, the current RStudio project is activated.
 \item Otherwise, the working directory and active project is changed.
 }}

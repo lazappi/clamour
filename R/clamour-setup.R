@@ -15,7 +15,7 @@
 #'   [rprojroot](https://rprojroot.r-lib.org) packages.
 #' @param open If `TRUE`, [activates][usethis::proj_activate()] the new project:
 #'
-#'   * If RStudio desktop, the package is opened in a new session.
+#'   * If using RStudio desktop, the package is opened in a new session.
 #'   * If on RStudio server, the current RStudio project is activated.
 #'   * Otherwise, the working directory and active project is changed.
 #'
@@ -80,6 +80,11 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
         seed          = 1
     )
 
+    usethis::use_directory("R")
+    usethis::use_template("libraries.R", "R/libraries.R", package = "clamour")
+    usethis::use_template("knitr-options.R", "R/knitr-options.R",
+                          package = "clamour")
+
     usethis::use_directory("docs")
     usethis::use_directory("data")
     if (!fs::file_exists(usethis::proj_path("data/EXAMPLE.Rds"))) {
@@ -95,7 +100,7 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     usethis::use_template("README.md", "README.md", package = "clamour")
 
     libs <- readLines(fs::path_package("clamour",
-                                       "templates/hashtag_template.Rmd"))
+                                       "templates/libraries.R"))
     libs <- libs[grep("library", libs)]
     libs <- gsub('library\\(\\"', "", libs)
     libs <- gsub('\\"\\)', "", libs)

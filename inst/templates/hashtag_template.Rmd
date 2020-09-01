@@ -1,7 +1,7 @@
 ---
 title: "{{TITLE}}"
 subtitle: "{{DESCRIPTION}}"
-date: "`r Sys.time()`"
+date: "Last built: `r Sys.time()`"
 params:
     hashtag: "{{HASHTAG}}"
     # Times
@@ -22,125 +22,61 @@ params:
     seed: {{SEED}}
 ---
 
-```{r knitr, include = FALSE}
+```{r setup, include = FALSE}
 DOCNAME <- tools::file_path_sans_ext(knitr::current_input())
-knitr::opts_chunk$set(
-    echo           = FALSE,
-    error          = FALSE,
-    fig.align      = "center",
-    fig.path       = paste0("figures/", DOCNAME, "/"),
-    fig.width      = 10,
-    fig.height     = 8,
-    message        = FALSE,
-    warning        = FALSE
-)
+source(here::here("R", "knitr-options.R"))
 ```
 
 ```{r libraries, include = FALSE}
-# Twitter
-library("rtweet")
-
-# Data manipulation
-library("dplyr")
-library("tidyr")
-library("lubridate")
-library("forcats")
-library("purrr")
-library("stringr")
-
-# Networks
-library("igraph")
-
-# Text analysis
-library("tidytext")
-library("topicmodels")
-
-# HTML
-library("rvest")
-
-# Emojis
-library("emo") # https://github.com/hadley/emo
-
-# Visualisation
-library("ggplot2")
-library("ggrepel")
-library("ggraph")
-library("ggtext")
-library("wordcloud")
-library("viridis")
-
-# Images
-library("webshot")
-library("magick")
-
-# Presentation
-library("knitr")
-
-# File paths
-library("here")
-library("fs")
+source(here::here("R", "libraries.R"))
 ```
 
-**Parameters**
+<p>
+  <button class="btn btn-primary" data-toggle="collapse" data-target="#Parameters">
+    Parameters
+  </button>
+</p>
 
+<div id="Parameters" class="collapse">
 ```{r params}
 params_table <- data.frame(Parameter = names(params), Value = unlist(params))
 
 kable(params_table, row.names = FALSE)
 ```
+</div>
 
 ```{r load}
-data_file <- here("data", paste0(DOCNAME, ".Rds"))
-
-if (params$fixed) {
-    if (file_exists(data_file)) {
-        tweets <- readRDS(data_file)
-    } else {
-        stop("fixed is TRUE but no data file exists", call. = FALSE)
-    }
-} else {
-    if (file_exists(data_file)) {
-        existing_tweets <- readRDS(data_file)
-        message(nrow(existing_tweets), " tweets already downloaded")
-        
-        new_tweets <- search_tweets(params$hashtag, 10000) %>%
-            mutate(collected_at = Sys.time())
-        message("Found ", nrow(new_tweets), " tweets")
-        
-        tweets <- new_tweets %>%
-            rbind(existing_tweets) %>%
-            group_by(status_id) %>%
-            top_n(1, collected_at) %>%
-            ungroup()
-        message("Dataset now contains ", nrow(tweets), " tweets")
-    } else {
-        tweets <- search_tweets(params$hashtag, 10000) %>%
-            mutate(collected_at = Sys.time())
-        message("Found ", nrow(tweets), " tweets")
-    }
-    saveRDS(tweets, data_file)
-}
-
-tweets <- tweets %>%
-    mutate(
-        date = as_date(created_at, tz = params$timezone),
-        datetime = as_datetime(created_at, tz = params$timezone),
-        hour = hour(datetime)
-    )
+cache_file <- here("data", paste0(DOCNAME, ".Rds"))
+hashtags_vec <- str_split(params$hashtag, ",")[[1]]
+hashtags_query <- paste(hashtags_vec, collapse = " OR ")
+tweets <- clamour_load_tweets(hashtags_query, cache_file,
+                              timezone = params$timezone, fixed = params$fixed)
 ```
 
-# Introduction
+# Introduction {.unnumbered}
 
-An analysis of tweets from the `r params$hashtag` hashtag. A total of
-`r nrow(tweets)` tweets from `r length(unique(tweets$screen_name))` users were 
-collected using the `rtweet` R package.
+An analysis of tweets for the query `r hashtags_query` related to
+{{DESCRIPTION}} from `r params$start_day` to `r params$end_day`. A total of
+`r nrow(tweets)` tweets from `r  length(unique(tweets$screen_name))` users were
+collected using the **{rtweet}** R package.
 
+<!-- This chunk adds the template analysis -->
 ```{r analysis, child = "_analysis.Rmd"}
-# This chunk adds the template analysis
+
 ```
+
+<!-- Any additional analysis can go here -->
 
 # Session info {.unnumbered}
 
+<p>
+  <button class="btn btn-primary" data-toggle="collapse" data-target="#SessionInfo">
+    Session info
+  </button>
+</p>
+
+<div id="SessionInfo" class="collapse">  
 ```{r session-info}
 sessionInfo()
 ```
+</div>
