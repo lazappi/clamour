@@ -1,7 +1,7 @@
 ---
 title: "{{TITLE}}"
 subtitle: "{{DESCRIPTION}}"
-date: "`r Sys.time()`"
+date: "Last built: `r Sys.time()`"
 params:
     hashtag: "{{HASHTAG}}"
     # Times
@@ -126,9 +126,10 @@ tweets <- tweets %>%
 
 # Introduction
 
-An analysis of tweets from the `r params$hashtag` hashtag. A total of
-`r nrow(tweets)` tweets from `r length(unique(tweets$screen_name))` users were 
-collected using the `rtweet` R package.
+An analysis of tweets for the query `r hashtag_query` related to {{DESCRIPTION}} 
+from `r params$start_day` to `r params$end_day`. A total of `r nrow(tweets)`
+tweets from `r  length(unique(tweets$screen_name))` users were  collected using
+the **{rtweet}** R package.
 
 ```{r analysis, child = "_analysis.Rmd"}
 # This chunk adds the template analysis
