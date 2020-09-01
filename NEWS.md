@@ -2,7 +2,7 @@
 
 * First minor version
 
-# Development versions
+# clamour 0.0.0
 
 ## clamour 0.0.0.9012 (2020-09-01)
 
