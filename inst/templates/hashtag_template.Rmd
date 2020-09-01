@@ -40,45 +40,11 @@ kable(params_table, row.names = FALSE)
 ```
 
 ```{r load}
-data_file <- here("data", paste0(DOCNAME, ".Rds"))
+cache_file <- here("data", paste0(DOCNAME, ".Rds"))
 hashtags_vec <- str_split(params$hashtag, ",")[[1]]
 hashtags_query <- paste(hashtags_vec, collapse = " OR ")
-
-if (params$fixed) {
-    if (file_exists(data_file)) {
-        tweets <- readRDS(data_file)
-    } else {
-        stop("fixed is TRUE but no data file exists", call. = FALSE)
-    }
-} else {
-    if (file_exists(data_file)) {
-        existing_tweets <- readRDS(data_file)
-        message(nrow(existing_tweets), " tweets already downloaded")
-        
-        new_tweets <- search_tweets(hashtags_query, 10000) %>%
-            mutate(collected_at = Sys.time())
-        message("Found ", nrow(new_tweets), " tweets")
-        
-        tweets <- new_tweets %>%
-            rbind(existing_tweets) %>%
-            group_by(status_id) %>%
-            top_n(1, collected_at) %>%
-            ungroup()
-        message("Dataset now contains ", nrow(tweets), " tweets")
-    } else {
-        tweets <- search_tweets(hashtags_query, 10000) %>%
-            mutate(collected_at = Sys.time())
-        message("Found ", nrow(tweets), " tweets")
-    }
-    saveRDS(tweets, data_file)
-}
-
-tweets <- tweets %>%
-    mutate(
-        date     = as_date(created_at, tz = params$timezone),
-        datetime = as_datetime(created_at, tz = params$timezone),
-        hour     = hour(datetime)
-    )
+tweets <- clamour_load_tweets(hashtags_query, cache_file,
+                              timezone = params$timezone, fixed = params$fixed)
 ```
 
 # Introduction

@@ -1,5 +1,6 @@
 * Add libraries script to templates
 * Add knitr options script to templates
+* Add `clamour_load_tweets()` function
 
 # clamour 0.0.0.9011 (2020-09-01)
 

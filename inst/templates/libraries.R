@@ -1,4 +1,5 @@
 # Twitter
+library("clamour")
 library("rtweet")
 
 # Data manipulation

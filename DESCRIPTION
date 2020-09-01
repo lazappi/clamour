@@ -20,7 +20,11 @@ Depends:
 Imports: 
     fs,
     usethis,
-    rmarkdown
+    rmarkdown,
+    magrittr,
+    rtweet,
+    dplyr,
+    lubridate
 Suggests: 
     spelling,
     testthat (>= 2.1.0),
