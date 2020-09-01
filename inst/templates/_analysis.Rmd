@@ -1,4 +1,4 @@
-```{r setup}
+```{r analysis-setup}
 # Convert days to dates
 start_date <- as_date(params$start_day)
 end_date <- as_date(params$end_day)

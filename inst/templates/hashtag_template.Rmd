@@ -22,22 +22,13 @@ params:
     seed: {{SEED}}
 ---
 
-```{r knitr, include = FALSE}
+```{r setup, include = FALSE}
 DOCNAME <- tools::file_path_sans_ext(knitr::current_input())
-knitr::opts_chunk$set(
-    echo           = FALSE,
-    error          = FALSE,
-    fig.align      = "center",
-    fig.path       = paste0("figures/", DOCNAME, "/"),
-    fig.width      = 10,
-    fig.height     = 8,
-    message        = FALSE,
-    warning        = FALSE
-)
+source(here::here("R", "knitr-options.R"))
 ```
 
 ```{r libraries, include = FALSE}
-source(here("R", "libraries.R"))
+source(here::here("R", "libraries.R"))
 ```
 
 **Parameters**

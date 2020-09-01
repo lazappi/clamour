@@ -81,7 +81,8 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     )
 
     usethis::use_directory("R")
-    usethis::use_template("libraries.R", "R/libraries.R",
+    usethis::use_template("libraries.R", "R/libraries.R", package = "clamour")
+    usethis::use_template("knitr-options.R", "R/knitr-options.R",
                           package = "clamour")
 
     usethis::use_directory("docs")
@@ -99,7 +100,7 @@ clamour_setup <- function(path, rstudio = rstudioapi::isAvailable(),
     usethis::use_template("README.md", "README.md", package = "clamour")
 
     libs <- readLines(fs::path_package("clamour",
-                                       "templates/hashtag_template.Rmd"))
+                                       "templates/libraries.R"))
     libs <- libs[grep("library", libs)]
     libs <- gsub('library\\(\\"', "", libs)
     libs <- gsub('\\"\\)', "", libs)
